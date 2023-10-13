@@ -11,7 +11,7 @@ class Pesanan extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Pesanan';
+        $data['title'] = 'Pesan Makanan';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
 
@@ -37,12 +37,12 @@ class Pesanan extends CI_Controller
                 'harga_satuan' => $this->input->post('harga_satuan'),
                 'jumlah' => $this->input->post('jumlah'),
                 'total' => $this->input->post('total_bayar'),
-                'status_bayar' => 0,
+                'status_bayar' => 3,
                 'uang_bayar' => 0,
                 'kembalian' => 0
             ];
             $this->db->insert('transaksi', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pesanan berhasil dibuat!</div>');
+            $this->session->set_flashdata('message', 'Pesanan berhasil dibuat!');
             redirect('Pesanan');
         }
     }

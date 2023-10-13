@@ -6,7 +6,14 @@
 
     <div class="row">
         <div class="col-lg-6">
-            <?= $this->session->flashdata('message'); ?>
+            <?php if ($this->session->flashdata('message')) : ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <?= $this->session->flashdata('message'); ?>
+                    <button type="button" class="close" data-dismiss="alert" onclick="<?php unset($_SESSION['message']); ?>" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
             <h5>Role: <?= $role['role']; ?></h5>
             <table class="table table-hover">
                 <thead>

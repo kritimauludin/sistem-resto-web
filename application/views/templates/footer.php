@@ -2,7 +2,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+            <span>Copyright &copy; Resto Unpak <?= date('Y') ?></span>
         </div>
     </div>
 </footer>
@@ -58,7 +58,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#tableTransaksi').DataTable();
+        $('#dataTable').DataTable();
     });
     $(document).ready(function() {
         $('#tableMakanan').DataTable();
@@ -83,6 +83,21 @@
             },
             success: function() {
                 document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
+            }
+        });
+    });
+
+    $('.form-send-order').on('click', function() {
+        const id = $(this).data('id');
+
+        $.ajax({
+            url: "<?= base_url('koki/sendorder'); ?>",
+            type: 'post',
+            data: {
+                id: id,
+            },
+            success: function() {
+                document.location.href = "<?= base_url('koki'); ?>";
             }
         });
     });
@@ -118,8 +133,12 @@
         var uangBayar = document.getElementById('uang_bayar').value;
         var id = document.getElementById('id').value;
         var kembalian = 0;
-        kembalian = parseInt(uangBayar) - parseInt(total);
-        document.getElementById("kembalian").value = kembalian;
+        if (uangBayar < total) {
+            alert("uang anda kurang");
+        } else {
+            kembalian = parseInt(uangBayar) - parseInt(total);
+            document.getElementById("kembalian").value = kembalian;
+        }
     };
 
     // Modal makanan

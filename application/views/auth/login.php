@@ -14,8 +14,22 @@
                                    <div class="text-center">
                                        <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                    </div>
-
-                                   <?= $this->session->flashdata('message'); ?>
+                                   <?php if ($this->session->flashdata('message')) : ?>
+                                       <div class="alert alert-danger alert-dismissible" role="alert">
+                                           <?= $this->session->flashdata('message'); ?>
+                                           <button type="button" class="close" data-dismiss="alert" onclick="<?php unset($_SESSION['message']); ?>" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                           </button>
+                                       </div>
+                                   <?php elseif ($this->session->flashdata('success')) : ?>
+                                       <div class="alert alert-success alert-dismissible" role="alert">
+                                           <?= $this->session->flashdata('success'); ?>
+                                           <button type="button" class="close" data-dismiss="alert" onclick="<?php unset($_SESSION['message']); ?>" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                           </button>
+                                       </div>
+                                   <?php else : ?>
+                                   <?php endif; ?>
                                    <form class="user" method="POST" action="<?= base_url('auth'); ?> ">
                                        <div class="form-group">
                                            <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value('email'); ?>">

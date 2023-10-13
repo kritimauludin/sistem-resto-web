@@ -16,7 +16,7 @@ class Makanan extends CI_Controller
 
         $data['makanan'] = $this->db->get('daftar_makanan')->result_array();
 
-        $this->form_validation->set_rules('namamakanan', 'NamaMakanan', 'required');
+        $this->form_validation->set_rules('namamakanan', 'NamaMakanan', 'required|max_length[15]');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
         $this->form_validation->set_rules('status', 'status', 'required');
         if ($this->form_validation->run() == false) {
@@ -32,7 +32,7 @@ class Makanan extends CI_Controller
                 'status' => $this->input->post('status')
             ];
             $this->db->insert('daftar_makanan', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New food added!</div>');
+            $this->session->set_flashdata('message', 'New food added!');
             redirect('makanan');
         }
     }
@@ -57,7 +57,7 @@ class Makanan extends CI_Controller
 
             $this->db->where('id', $id);
             $this->db->update('daftar_makanan', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">food has been edited!</div>');
+            $this->session->set_flashdata('message', 'Food has been edited!');
             redirect('makanan');
         }
     }
@@ -65,7 +65,7 @@ class Makanan extends CI_Controller
     {
         $this->db->where('id', $id);
         $this->db->delete('daftar_makanan');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">makanan telah dihapus!</div>');
+        $this->session->set_flashdata('message', 'Food has been deleted!');
         redirect('makanan');
     }
 }

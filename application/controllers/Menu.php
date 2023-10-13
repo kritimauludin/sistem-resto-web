@@ -25,7 +25,7 @@ class Menu extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->db->insert('user_menu', ['menu' => $this->input->post('menu')]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New menu added!</div>');
+            $this->session->set_flashdata('message', 'New menu added!');
             redirect('menu');
         }
     }
@@ -45,7 +45,7 @@ class Menu extends CI_Controller
 
             $this->db->where('id', $id);
             $this->db->update('user_menu', ['menu' => $updatemenu]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Menu has been edited!</div>');
+            $this->session->set_flashdata('message', 'Menu has been edited!');
             redirect('menu');
         }
     }
@@ -53,7 +53,7 @@ class Menu extends CI_Controller
     {
         $this->db->where('id', $id);
         $this->db->delete('user_menu');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu has been deleted!</div>');
+        $this->session->set_flashdata('message', 'Menu has been deleted!');
         redirect('menu');
     }
 
@@ -83,10 +83,10 @@ class Menu extends CI_Controller
                 'menu_id' => $this->input->post('menu_id'),
                 'url' => $this->input->post('url'),
                 'icon' => $this->input->post('icon'),
-                'is_active' => $this->input->post('is_active')
+                'is_active' => 1
             ];
             $this->db->insert('user_sub_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Sub menu added!</div>');
+            $this->session->set_flashdata('message', 'New Sub menu added!');
             redirect('menu/submenu');
         }
     }
@@ -113,7 +113,7 @@ class Menu extends CI_Controller
             ];
             $this->db->where('id', $id);
             $this->db->update('user_sub_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">sub menu has been edited!</div>');
+            $this->session->set_flashdata('message', 'Sub menu has been edited!');
             redirect('menu/submenu');
         }
     }
@@ -121,7 +121,7 @@ class Menu extends CI_Controller
     {
         $this->db->where('id', $id);
         $this->db->delete('user_sub_menu');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu has been deleted!</div>');
+        $this->session->set_flashdata('message', 'Submenu has been deleted!');
         redirect('menu/submenu');
     }
 }

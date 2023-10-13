@@ -14,7 +14,7 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
 
-        $data['role'] = $this->db->get('user_role')->result_array();
+        $data['role'] = $this->db->where('id!=', 1)->get('user_role')->result_array();
 
         $this->form_validation->set_rules('role', 'Role', 'required');
         if ($this->form_validation->run() == false) {
@@ -25,8 +25,8 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->db->insert('user_role', ['role' => $this->input->post('role')]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New role added!</div>');
-            redirect('admin/role');
+            $this->session->set_flashdata('message', 'New role added!');
+            redirect('admin/index');
         }
     }
     public function roleAccess($role_id)
@@ -61,16 +61,16 @@ class Admin extends CI_Controller
 
             $this->db->where('id', $id);
             $this->db->update('user_role', ['role' => $updaterole]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Menu has been edited!</div>');
-            redirect('admin/role');
+            $this->session->set_flashdata('message', 'Role has been edited!');
+            redirect('admin/index');
         }
     }
     public function deleteRole($id)
     {
         $this->db->where('id', $id);
         $this->db->delete('user_role');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu has been deleted!</div>');
-        redirect('admin/role');
+        $this->session->set_flashdata('message', 'Role has been deleted!');
+        redirect('admin/index');
     }
 
     public function changeAccess()
@@ -88,7 +88,6 @@ class Admin extends CI_Controller
         } else {
             $this->db->delete('user_access_menu', $data);
         }
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Access Changed!</div>');
+        $this->session->set_flashdata('message', 'Access Changed!');
     }
 }

@@ -10,7 +10,7 @@ class Transaksi extends CI_Controller
     }
     public function index()
     {
-        $data['title'] = 'Transaksi';
+        $data['title'] = 'Daftar Transaksi';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
 
@@ -32,7 +32,7 @@ class Transaksi extends CI_Controller
                 'stok' => $this->input->post('stok')
             ];
             $this->db->insert('daftar_makanan', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New food added!</div>');
+            $this->session->set_flashdata('message', 'Transaction added!');
             redirect('makanan');
         }
     }
@@ -63,7 +63,7 @@ class Transaksi extends CI_Controller
 
             $this->db->where('id', $id);
             $this->db->update('transaksi', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaksi berhasil diubah!</div>');
+            $this->session->set_flashdata('message', 'Transaction has been updated!');
             redirect('transaksi');
         }
     }
@@ -71,7 +71,7 @@ class Transaksi extends CI_Controller
     {
         $this->db->where('id', $id);
         $this->db->delete('transaksi');
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaksi telah dihapus!</div>');
+        $this->session->set_flashdata('message', 'Transaction has been deleted!');
         redirect('transaksi');
     }
 }

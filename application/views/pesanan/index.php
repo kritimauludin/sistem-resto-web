@@ -1,17 +1,21 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h2 class="h3 mb-4 text-gray-800"><?= $title; ?></h2>
-
     <div class="row">
         <div class="col-lg-8">
             <?php if (validation_errors()) : ?>
                 <div class="alert alert-danger" role="alert">
                     <?= validation_errors(); ?>
                 </div>
+            <?php elseif ($this->session->flashdata('message')) : ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <?= $this->session->flashdata('message'); ?>
+                    <button type="button" class="close" data-dismiss="alert" onclick="<?php unset($_SESSION['message']); ?>" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php else : ?>
             <?php endif; ?>
-            <?= $this->session->flashdata('message'); ?>
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMakananModal">Pesan Sekarang</a>
 
             <h5>History Pemesanan</h5>
@@ -19,7 +23,7 @@
             <?php foreach ($pesanan as $p) : ?>
                 <div class="card col-md-10 border-info mb-3">
                     <div class="card-header">
-                        <?php if ($p['status_bayar'] > 0) {
+                        <?php if ($p['status_bayar'] == 1) {
                             $status = "Sudah Dibayar";
                         } else {
                             $status = "Belum Dibayar (Silahkan Hampiri Kasir)";
@@ -64,7 +68,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-10">
-                                <input type="text" class="form-control" id="nama_makanan" name="nama_makanan" placeholder="Pilih Makanan" readonly>
+                                <input type="text" class="form-control" id="nama_makanan" name="nama_makanan" placeholder="Pilih Makanan" readonly required>
                             </div>
                             <div class="col">
                                 <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#ModalMakanan">Cari</button>
@@ -78,7 +82,7 @@
 
                         </div>
                         <div class="form-group ">
-                            <input type="number" class="form-control" id="jumlah" name="jumlah" onkeyup="Hitung()" placeholder="Masukan banyak pesananan">
+                            <input type="number" class="form-control" id="jumlah" name="jumlah" onkeyup="Hitung()" placeholder="Masukan banyak pesananan" required>
                         </div>
                         <div class="form-group ">
                             <input type="number" class="form-control" id="total_bayar" name="total_bayar" placeholder="Total Bayar" readonly>
